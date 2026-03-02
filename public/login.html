@@ -5,39 +5,50 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login Usuarios</title>
 <link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,500;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 <body>
 
 <div class="login-container">
 
-    <h2>Iniciar Sesión</h2>
+<img src="img/icono_sin_fondo.png" 
+    alt="Logotipo doña maya" 
+    class="logotipo">
 
-    <form id="loginForm">
+<h2>Iniciar Sesión</h2>
 
-        <div class="input-group">
-            <label>Correo electrónico</label>
-            <input type="email" id="email" required>
-        </div>
+<form id="loginForm">
 
-        <div class="input-group">
-            <label>Contraseña</label>
+    <div class="input-group">
+        <label>Correo electrónico</label>
+        <input type="email" id="email" required>
+    </div>
+
+    <div class="input-group">
+        <label>Contraseña</label>
+
+        <div class="password-container">
             <input type="password" id="password" required>
+            <i id="togglePassword" class="fa-solid fa-eye toggle-btn"></i>
         </div>
 
-        <button type="submit">Ingresar</button>
+    </div>
 
-        <!-- TEXTO NUEVO -->
-        <p class="registro-texto">
-            ¿No tienes una cuenta?
-            <a href="registro.html" class="crear-cuenta">Crear cuenta</a>
-        </p>
+    <button type="submit">Ingresar</button>
 
-    </form>
+    <p class="registro-texto">
+        ¿No tienes una cuenta?
+        <a href="registro.html" class="crear-cuenta">Crear cuenta</a>
+    </p>
 
-    <p id="mensaje"></p>
+</form>
+
+<p id="mensaje"></p>
 
 </div>
 
-<script src="script.js"></script>
+<script src="login.js"></script>
 </body>
 </html>

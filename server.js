@@ -37,14 +37,26 @@ app.post('/registro', async (req,res)=>{
     try{
 
         //  verificar si el correo ya existe
-        const [existe] = await db.query(
+        const [correoExiste] = await db.query(
             "SELECT id_usuario FROM usuarios WHERE email=?",
             [email]
         );
 
-        if(existe.length>0){
+        if(correoExiste.length>0){
             return res.status(400).json({
-                mensaje:"El correo ya está registrado"
+                mensaje:"No se pudo registrar: correo ya registrado"
+            });
+        }
+
+        //  verificar si el telefono ya existe 
+        const [telefonoExiste] = await db.query(
+            "SELECT id_usuario FROM usuarios WHERE telefono=?",
+            [telefono]
+        );
+
+        if(telefonoExiste.length>0){
+            return res.status(400).json({
+                mensaje:"No se pudo registrar: número de teléfono ya registrado"
             });
         }
 

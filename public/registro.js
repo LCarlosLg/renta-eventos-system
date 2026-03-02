@@ -3,22 +3,23 @@ const mensaje = document.getElementById('mensaje');
 const togglePassword = document.getElementById('togglePassword');
 const passwordInput = document.getElementById('password');
 
-//  Mostrar u ocultar contraseña.
-togglePassword.addEventListener('click',()=>{
+//Mostrar u ocultar contraseña
+togglePassword.addEventListener('click', () => {
 
-    if(passwordInput.type === "password"){
+    if (passwordInput.type === "password") {
         passwordInput.type = "text";
-        togglePassword.textContent = "🙈";
-    }else{
+        togglePassword.classList.remove("fa-eye");
+        togglePassword.classList.add("fa-eye-slash");
+    } else {
         passwordInput.type = "password";
-        togglePassword.textContent = "👁️";
+        togglePassword.classList.remove("fa-eye-slash");
+        togglePassword.classList.add("fa-eye");
     }
 
 });
 
-//  Formulario para el registro de usurios (clientes)
-
-form.addEventListener('submit', async e=>{
+//Formulario para el registro de usuarios
+form.addEventListener('submit', async e => {
 
     e.preventDefault();
 
@@ -27,21 +28,21 @@ form.addEventListener('submit', async e=>{
     const telefono = document.getElementById('telefono').value.trim();
     const password = passwordInput.value.trim();
 
-    // validación básica frontend
-    if(!nombre || !email || !telefono || !password){
-        mensaje.style.color="red";
-        mensaje.innerText="Todos los campos son obligatorios";
+    // Validación básica frontend
+    if (!nombre || !email || !telefono || !password) {
+        mensaje.style.color = "red";
+        mensaje.innerText = "Todos los campos son obligatorios";
         return;
     }
 
-    try{
+    try {
 
-        const res = await fetch('http://localhost:5000/registro',{
-            method:'POST',
-            headers:{
-                'Content-Type':'application/json'
+        const res = await fetch('http://localhost:5000/registro', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
             },
-            body:JSON.stringify({
+            body: JSON.stringify({
                 nombre,
                 email,
                 telefono,
@@ -51,30 +52,34 @@ form.addEventListener('submit', async e=>{
 
         const data = await res.json();
 
-        if(res.ok){
+        if (res.ok) {
 
-            mensaje.style.color="green";
-            mensaje.innerText="Usuario registrado correctamente";
+            mensaje.style.color = "green";
+            mensaje.innerText = "Usuario registrado correctamente";
 
             form.reset();
-            togglePassword.textContent="👁️";
 
-            setTimeout(()=>{
-                window.location.href="login.html";
-            },1500);
+            
+            passwordInput.type = "password";
+            togglePassword.classList.remove("fa-eye-slash");
+            togglePassword.classList.add("fa-eye");
 
-        }else{
+            setTimeout(() => {
+                window.location.href = "login.html";
+            }, 1500);
 
-            mensaje.style.color="red";
-            mensaje.innerText=data.mensaje || "Error al registrar";
+        } else {
+
+            mensaje.style.color = "red";
+            mensaje.innerText = data.mensaje || "Error al registrar";
 
         }
 
-    }catch(err){
+    } catch (err) {
 
         console.error(err);
-        mensaje.style.color="red";
-        mensaje.innerText="Error de conexión con el servidor";
+        mensaje.style.color = "red";
+        mensaje.innerText = "Error de conexión con el servidor";
 
     }
 

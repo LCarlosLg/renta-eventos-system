@@ -5,10 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Registro</title>
 <link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,500;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
 <div class="login-container">
+
+    <img src="img/icono_sin_fondo.png" 
+        alt="Logotipo doña maya" 
+        class="logotipo">
 
     <h2>Crear Cuenta</h2>
 
@@ -29,12 +35,11 @@
             <input type="text" id="telefono" required>
         </div>
 
-        <div class="input-group password-group">
+        <div class="input-group">
             <label>Contraseña</label>
-
             <div class="password-container">
                 <input type="password" id="password" required>
-                <span id="togglePassword">👁️</span>
+                <i id="togglePassword" class="fa-solid fa-eye toggle-btn"></i>
             </div>
         </div>
 

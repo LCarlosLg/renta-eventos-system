@@ -6,97 +6,145 @@
 }
 
 body{
-    background:#f2f2f2;
+    background:linear-gradient(135deg,#f3e6ff,#ffffff);
     display:flex;
     justify-content:center;
     align-items:center;
-    height:100vh;
+    min-height:100vh;
 }
 
+/* Contenedor de login */
 .login-container{
     background:white;
-    padding:35px;
-    width:320px;
-    border-radius:12px;
-    box-shadow:0 0 15px rgba(0,0,0,0.15);
+    padding:25px 35px 40px 35px;
+    width:100%;
+    max-width:400px;
+    border-radius:20px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.18);
     text-align:center;
 }
 
-h2{
-    margin-bottom:20px;
-    color:#333;
+/* Logotipo doña maya */
+.logotipo{
+    display:block;
+    width:100%;
+    max-width:360px;
+    height:auto;
+    margin:-20px auto 30px auto;
+    filter: drop-shadow(0 18px 30px rgba(0,0,0,0.35));
+    transition: transform 0.3s ease;
 }
 
+.logotipo:hover{
+    transform: scale(1.08);
+}
+
+/* Titulo */
+h2{
+    margin-bottom:25px;
+    color:#333;
+    font-weight:600;
+    font-family:'Playfair Display', serif;
+    font-style:italic;
+}
+
+/* Inputs */
 .input-group{
     text-align:left;
-    margin-bottom:15px;
+    margin-bottom:20px;
 }
 
 label{
     font-size:14px;
+    color:#444;
+    font-family:'Playfair Display', serif;
+    font-style:italic;
+    letter-spacing:0.5px;
 }
 
 input{
     width:100%;
-    padding:10px;
-    margin-top:5px;
-    border-radius:6px;
-    border:1px solid #ccc;
-}
-
-button{
-    width:100%;
     padding:12px;
-    border:none;
-    border-radius:6px;
-    background:orange;
-    color:white;
-    font-size:16px;
-    cursor:pointer;
+    margin-top:6px;
+    border-radius:12px;
+    border:1px solid #ccc;
     transition:0.3s;
-}
-
-button:hover{
-    background:#ff8c00;
-}
-
-#mensaje{
-    margin-top:15px;
-    font-weight:bold;
-}
-.registro-texto{
-    margin-top:15px;
     font-size:14px;
 }
 
-.crear-cuenta{
-    color:blue;
-    text-decoration:none;
-    font-weight:bold;
-    cursor:pointer;
+input:focus{
+    outline:none;
+    border-color:#8a2be2;
+    box-shadow:0 0 8px rgba(138,43,226,0.3);
 }
 
-.crear-cuenta:hover{
-    text-decoration:underline;
-}
+/* Contenedor password */
 .password-container{
     position:relative;
 }
 
 .password-container input{
-    width:100%;
-    padding-right:40px;
+    padding-right:45px;
 }
 
-#togglePassword{
+/* Icono ojo */
+.toggle-btn{
     position:absolute;
-    right:10px;
+    right:15px;
     top:50%;
     transform:translateY(-50%);
     cursor:pointer;
     font-size:18px;
+    color:#777;
+    transition:0.3s ease;
 }
 
-#togglePassword:hover{
-    opacity:0.7;
+.toggle-btn:hover{
+    color:#8a2be2;
+    transform:translateY(-50%) scale(1.1);
+}
+
+/* Boton submit */
+.login-container button[type="submit"]{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(45deg,#8a2be2,#b832c5);
+    color:white;
+    font-size:17px;
+    cursor:pointer;
+    transition:0.3s;
+    font-weight:600;
+    font-family:'Playfair Display', serif;
+    font-style:italic;
+    letter-spacing:1px;
+}
+
+.login-container button[type="submit"]:hover{
+    transform:scale(1.04);
+    opacity:0.95;
+}
+
+/* Mensajes */
+#mensaje{
+    margin-top:15px;
+    font-weight:bold;
+}
+
+/* Texto registro */
+.registro-texto{
+    margin-top:20px;
+    font-size:14px;
+}
+
+.crear-cuenta{
+    color:#8a2be2;
+    text-decoration:none;
+    font-weight:bold;
+    transition:0.2s;
+}
+
+.crear-cuenta:hover{
+    text-decoration:underline;
 }
