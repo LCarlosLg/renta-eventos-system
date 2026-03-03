@@ -9,14 +9,11 @@ document.addEventListener("DOMContentLoaded", function () {
     togglePassword.addEventListener("click", function () {
         if (passwordInput.type === "password") {
             passwordInput.type = "text";
-            togglePassword.classList.remove("fa-eye");
-            togglePassword.classList.add("fa-eye-slash");
+            togglePassword.classList.replace("fa-eye", "fa-eye-slash");
         } else {
             passwordInput.type = "password";
-            togglePassword.classList.remove("fa-eye-slash");
-            togglePassword.classList.add("fa-eye");
+            togglePassword.classList.replace("fa-eye-slash", "fa-eye");
         }
-
     });
 
     // LOGIN
@@ -29,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         try {
 
-            const respuesta = await fetch("/login", {
+            const respuesta = await fetch("/api/auth/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -40,9 +37,20 @@ document.addEventListener("DOMContentLoaded", function () {
             const data = await respuesta.json();
 
             if (respuesta.ok) {
+
                 mensaje.style.color = "green";
                 mensaje.innerText = "Login correcto";
+
+                // Guardamos token
                 localStorage.setItem("token", data.token);
+
+                // 🔥 Redirección por rol
+                if (data.usuario.id_rol === 3) {
+                    window.location.href = "/cliente/dashboard.html";
+                } else {
+                    window.location.href = "/admin/dashboard.html";
+                }
+
             } else {
                 mensaje.style.color = "red";
                 mensaje.innerText = data.mensaje;

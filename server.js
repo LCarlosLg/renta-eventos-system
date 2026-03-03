@@ -1,158 +1,57 @@
 require('dotenv').config();
 
 const express = require('express');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const path = require('path');
 
-const db = require('./db/renta_manteleria_cristaleria_db');
-
 const app = express();
 
-//  MIDDLEWARES
+// =======================
+// MIDDLEWARES
+// =======================
 
-app.use(express.json());
 app.use(cors());
-app.use(express.static(path.join(__dirname,'public')));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-//  RUTA PRINCIPAL LOGIN
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/',(req,res)=>{
-    res.sendFile(path.join(__dirname,'public','login.html'));
+// =======================
+// RUTAS
+// =======================
+
+const authRoutes = require('./routes/auth.routes');
+const clienteRoutes = require('./routes/clientes.routes');
+const empleadoRoutes = require('./routes/empleado.routes');
+const adminRoutes = require('./routes/admin.routes');
+
+app.use('/api/auth', authRoutes);
+app.use('/api/clientes', clienteRoutes);
+app.use('/api/empleado', empleadoRoutes);
+app.use('/api/admin', adminRoutes);
+
+// =======================
+// RUTA PRINCIPAL
+// =======================
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'auth', 'login.html'));
 });
 
-//  REGISTRO CLIENTES
+// =======================
+// 404
+// =======================
 
-app.post('/registro', async (req,res)=>{
-
-    const {nombre,email,password,telefono} = req.body;
-
-    if(!nombre || !email || !password || !telefono){
-        return res.status(400).json({
-            mensaje:"Todos los campos son obligatorios"
-        });
-    }
-
-    try{
-
-        //  verificar si el correo ya existe
-        const [correoExiste] = await db.query(
-            "SELECT id_usuario FROM usuarios WHERE email=?",
-            [email]
-        );
-
-        if(correoExiste.length>0){
-            return res.status(400).json({
-                mensaje:"No se pudo registrar: correo ya registrado"
-            });
-        }
-
-        //  verificar si el telefono ya existe 
-        const [telefonoExiste] = await db.query(
-            "SELECT id_usuario FROM usuarios WHERE telefono=?",
-            [telefono]
-        );
-
-        if(telefonoExiste.length>0){
-            return res.status(400).json({
-                mensaje:"No se pudo registrar: número de teléfono ya registrado"
-            });
-        }
-
-        //  Encriptcion de las contraseñas
-        const hash = await bcrypt.hash(password,10);
-
-        const sql = `
-        INSERT INTO usuarios
-        (id_rol,nombre,email,password,telefono,estado,created_at,imagen)
-        VALUES(3,?,?,?,?, 'activo',NOW(),NULL)
-        `;
-
-        await db.query(sql,[nombre,email,hash,telefono]);
-
-        res.json({
-            mensaje:"Usuario cliente creado correctamente"
-        });
-
-    }catch(error){
-
-        console.log("ERROR REGISTRO:",error);
-
-        res.status(500).json({
-            mensaje:"Error al registrar usuario"
-        });
-    }
-
+app.use((req, res) => {
+    res.status(404).json({ mensaje: "Ruta no encontrada" });
 });
 
-//  LOGIN 
-app.post('/login', async (req,res)=>{
+// =======================
+// SERVIDOR
+// =======================
 
-    const {email,password} = req.body;
+const PORT = process.env.PORT || 5000;
 
-    try{
-
-        const sql = `
-        SELECT id_usuario,id_rol,nombre,email,password,estado,imagen
-        FROM usuarios
-        WHERE email=?
-        `;
-
-        const [result] = await db.query(sql,[email]);
-
-        if(result.length===0){
-            return res.status(401).json({
-                mensaje:"Usuario no existe"
-            });
-        }
-
-        const usuario = result[0];
-
-        if(usuario.estado !== "activo"){
-            return res.status(403).json({
-                mensaje:"Usuario inactivo"
-            });
-        }
-
-        const valido = await bcrypt.compare(password,usuario.password);
-
-        if(!valido){
-            return res.status(401).json({
-                mensaje:"Contraseña incorrecta"
-            });
-        }
-
-        const token = jwt.sign(
-            {
-                id:usuario.id_usuario,
-                rol:usuario.id_rol
-            },
-            process.env.JWT_SECRET,
-            {expiresIn:'8h'}
-        );
-
-        res.json({
-            mensaje:"Login correcto",
-            token,
-            usuario:{
-                id:usuario.id_usuario,
-                nombre:usuario.nombre,
-                email:usuario.email,
-                rol:usuario.id_rol,
-                imagen:usuario.imagen
-            }
-        });
-
-    }catch(error){
-        console.log("ERROR LOGIN:",error);
-        res.status(500).json({mensaje:"Error servidor"});
-    }
-
-});
-
-//  SERVIDOR local y conexion de puerto.
-
-app.listen(5000,()=>{
-    console.log("Servidor corriendo en http://localhost:5000");
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
