@@ -44,12 +44,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Guardamos token
                 localStorage.setItem("token", data.token);
 
-                // 🔥 Redirección por rol
-                if (data.usuario.id_rol === 3) {
-                    window.location.href = "/cliente/dashboard.html";
+               // Redirección por rol
+                const rol = data.usuario.rol;
+                if (rol === 3) {
+                // CLIENTE
+                window.location.href = "/cliente/dashboard.html";
+                } else if (rol === 1) {
+                // ADMIN
+                window.location.href = "/admin/dashboard.html";
                 } else {
-                    window.location.href = "/admin/dashboard.html";
-                }
+                mensaje.style.color = "red";
+                mensaje.innerText = "Rol no permitido";
+            }
 
             } else {
                 mensaje.style.color = "red";

@@ -25,10 +25,18 @@ const clienteRoutes = require('./routes/clientes.routes');
 const empleadoRoutes = require('./routes/empleado.routes');
 const adminRoutes = require('./routes/admin.routes');
 
+const productosRoutes = require('./routes/productos.routes');
+const carritoRoutes = require('./routes/carrito.routes');
+const pedidosRoutes = require('./routes/pedidos.routes');
+
 app.use('/api/auth', authRoutes);
 app.use('/api/clientes', clienteRoutes);
 app.use('/api/empleado', empleadoRoutes);
 app.use('/api/admin', adminRoutes);
+
+app.use('/api/productos', productosRoutes);
+app.use('/api/carrito', carritoRoutes);
+app.use('/api/pedidos', pedidosRoutes);
 
 // =======================
 // RUTA PRINCIPAL
