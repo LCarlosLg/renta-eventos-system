@@ -38,4 +38,12 @@ router.get(
     pedidosController.obtenerPedidos
 );
 
+// Actualizar estado de pedido
+router.put(
+    '/:id',
+    verificarToken,
+    verificarRol([1,2]),
+    pedidosController.actualizarEstadoPedido
+);
+
 module.exports = router;

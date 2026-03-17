@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Catálogo</title>
+<title>Historial de Rentas</title>
 <link rel="stylesheet" href="../assets/css/global.css">
 <link rel="stylesheet" href="../assets/css/cliente.css">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,500;1,600&display=swap" rel="stylesheet">
@@ -27,16 +27,25 @@
     </header>
 
     <div class="container">
-        <h1>Catálogo de Productos</h1>
-        <div class="search-bar">
-            <input type="text" id="search" placeholder="Buscar producto..." />
-            <button id="btnBuscar">Buscar</button>
-        </div>
-        <div id="productos" class="productos"></div>
+        <h1>Historial de Rentas</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Pedido</th>
+                    <th>Fecha</th>
+                    <th>Estado</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                </tr>
+            </thead>
+            <tbody id="historial"></tbody>
+        </table>
     </div>
 </div>
 
-<script src="../assets/js/cliente.js"></script>
+<script src="../assets/js/historial.js"></script>
 
 </body>
 </html>

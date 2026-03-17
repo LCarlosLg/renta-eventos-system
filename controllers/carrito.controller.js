@@ -8,9 +8,16 @@ exports.obtenerCarrito = async (req, res) => {
     try {
 
         const [carrito] = await db.query(`
-            SELECT c.id_carrito,p.nombre,p.precio,c.cantidad
+            SELECT
+                c.id_carrito,
+                c.categoria,
+                c.id_producto,
+                c.cantidad,
+                COALESCE(cr.nombre, m.nombre) AS nombre,
+                COALESCE(cr.precio_dia, m.precio_dia) AS precio_dia
             FROM carrito c
-            JOIN productos p ON c.id_producto=p.id_producto
+            LEFT JOIN cristaleria cr ON c.categoria='cristaleria' AND c.id_producto=cr.id_cristaleria
+            LEFT JOIN manteleria m ON c.categoria='manteleria' AND c.id_producto=m.id_manteleria
             WHERE c.id_usuario=?
         `, [usuarioId]);
 
@@ -25,15 +32,19 @@ exports.obtenerCarrito = async (req, res) => {
 exports.agregarCarrito = async (req, res) => {
 
     const usuarioId = req.usuario.id;
-    const { producto_id, cantidad } = req.body;
+    const { categoria, producto_id, cantidad } = req.body;
+
+    if (!['cristaleria', 'manteleria'].includes(categoria)) {
+        return res.status(400).json({ mensaje: "Categoría inválida" });
+    }
 
     try {
 
         await db.query(`
             INSERT INTO carrito
-            (id_usuario,id_producto,cantidad)
-            VALUES(?,?,?)
-        `, [usuarioId, producto_id, cantidad]);
+            (id_usuario,categoria,id_producto,cantidad)
+            VALUES(?,?,?,?)
+        `, [usuarioId, categoria, producto_id, cantidad]);
 
         res.json({ mensaje: "Producto agregado al carrito" });
 

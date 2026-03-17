@@ -23,6 +23,14 @@ router.get(
     productosController.obtenerProducto
 );
 
+// Actualizar producto (ADMIN)
+router.put(
+    '/:categoria/:id',
+    verificarToken,
+    verificarRol([1]),
+    verificarCategoria,
+    productosController.actualizarProducto
+);
 
 // =====================================
 // ADMIN

@@ -1,31 +1,50 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="es">
 <head>
-<link rel="stylesheet" href="/assets/css/cliente.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carrito</title>
+<link rel="stylesheet" href="../assets/css/global.css">
+<link rel="stylesheet" href="../assets/css/cliente.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,500;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
 
-<h2>Carrito</h2>
+<div class="cliente-container">
+    <header>
+        <div class="brand">
+            <img src="../assets/img/icono_sin_fondo.png" alt="Logotipo doña maya" class="header-logo">
+            <h2>Renta Mantelería y Cristalería</h2>
+        </div>
+        <nav>
+            <a href="catalogo.html"><i class="fas fa-store"></i> Catálogo</a>
+            <a href="carrito.html"><i class="fas fa-shopping-cart"></i> Carrito</a>
+            <a href="historial.html"><i class="fas fa-history"></i> Historial</a>
+            <a href="perfil.html"><i class="fas fa-user"></i> Perfil</a>
+        </nav>
+    </header>
 
-<table>
+    <div class="container">
+        <h1>Carrito de Compras</h1>
 
-<thead>
-<tr>
-<th>Producto</th>
-<th>Cantidad</th>
-<th>Precio</th>
-</tr>
-</thead>
+        <table>
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                </tr>
+            </thead>
+            <tbody id="carrito"></tbody>
+        </table>
 
-<tbody id="carrito"></tbody>
+        <h3>Total: $<span id="total">0</span></h3>
+    </div>
+</div>
 
-</table>
-
-<h3>Total: $<span id="total">0</span></h3>
-
-<script src="/assets/js/carrito.js"></script>
+<script src="../assets/js/carrito.js"></script>
 
 </body>
 </html>

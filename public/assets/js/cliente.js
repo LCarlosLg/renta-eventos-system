@@ -1,9 +1,10 @@
 const contenedor = document.getElementById("productos")
 
-async function cargarProductos(){
+async function cargarProductos(busqueda = ''){
 
-    const res = await fetch("/api/productos")
-    const data = await res.json()
+    const query = busqueda ? `?q=${encodeURIComponent(busqueda)}` : '';
+    const res = await fetch(`/api/productos${query}`);
+    const data = await res.json();
 
     contenedor.innerHTML=""
 
@@ -15,7 +16,7 @@ async function cargarProductos(){
             <h3>${producto.nombre}</h3>
             <p>$${producto.precio_dia} por día</p>
 
-            <button onclick="agregarCarrito(${producto.id})">
+            <button onclick="agregarCarrito('${producto.categoria}', ${producto.id})">
                 Agregar
             </button>
         </div>
@@ -23,7 +24,7 @@ async function cargarProductos(){
     })
 }
 
-async function agregarCarrito(id){
+async function agregarCarrito(categoria, id){
 
     const token = localStorage.getItem("token")
 
@@ -34,6 +35,7 @@ async function agregarCarrito(id){
             "Authorization":`Bearer ${token}`
         },
         body:JSON.stringify({
+            categoria,
             producto_id:id,
             cantidad:1
         })
@@ -42,4 +44,18 @@ async function agregarCarrito(id){
     alert("Producto agregado")
 }
 
-cargarProductos()
+cargarProductos();
+
+const searchInput = document.getElementById('search');
+const searchBtn = document.getElementById('btnBuscar');
+
+searchBtn?.addEventListener('click', () => {
+    cargarProductos(searchInput.value.trim());
+});
+
+searchInput?.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        cargarProductos(searchInput.value.trim());
+    }
+});

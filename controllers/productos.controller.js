@@ -7,54 +7,81 @@ const db = require('../db/renta_manteleria_cristaleria_db');
 
 exports.obtenerProductos = async (req, res) => {
 
+    const { categoria, estado, q } = req.query;
+
+    // Por defecto solo mostramos productos disponibles en el catálogo público.
+    const estadoFiltro = estado || 'disponible';
+
+    const filtros = [];
+    const params = [];
+
+    if (estadoFiltro && estadoFiltro !== 'all') {
+        filtros.push("estado = ?");
+        params.push(estadoFiltro);
+    }
+
+    if (q) {
+        filtros.push("nombre LIKE ?");
+        params.push(`%${q}%`);
+    }
+
+    const where = filtros.length > 0 ? `AND ${filtros.join(' AND ')}` : '';
+
     try {
 
-        const [cristaleria] = await db.query(`
-            SELECT
-                id_cristaleria AS id,
-                codigo_sku,
-                nombre,
-                tipo,
-                material,
-                precio_dia,
-                cantidad_disponible,
-                imagen,
-                'cristaleria' AS categoria
-            FROM cristaleria
-            WHERE estado='disponible'
-        `);
+        let cristaleria = [];
+        let manteleria = [];
 
+        if (!categoria || categoria === 'cristaleria') {
+            const [rows] = await db.query(`
+                SELECT
+                    id_cristaleria AS id,
+                    codigo_sku,
+                    nombre,
+                    tipo,
+                    material,
+                    precio_dia,
+                    cantidad_disponible,
+                    imagen,
+                    estado,
+                    'cristaleria' AS categoria
+                FROM cristaleria
+                WHERE 1=1 ${where}
+            `, params);
+            cristaleria = rows;
+        }
 
-        const [manteleria] = await db.query(`
-            SELECT
-                id_manteleria AS id,
-                codigo_sku,
-                nombre,
-                medida,
-                color,
-                material,
-                tipo_tela,
-                precio_dia,
-                cantidad_disponible,
-                imagen,
-                'manteleria' AS categoria
-            FROM manteleria
-            WHERE estado='disponible'
-        `);
-
+        if (!categoria || categoria === 'manteleria') {
+            const [rows] = await db.query(`
+                SELECT
+                    id_manteleria AS id,
+                    codigo_sku,
+                    nombre,
+                    medida,
+                    color,
+                    material,
+                    tipo_tela,
+                    precio_dia,
+                    cantidad_total,
+                    cantidad_disponible,
+                    imagen,
+                    estado,
+                    'manteleria' AS categoria
+                FROM manteleria
+                WHERE 1=1 ${where}
+            `, params);
+            manteleria = rows;
+        }
 
         const productos = [...cristaleria, ...manteleria];
 
         res.json(productos);
 
     } catch (error) {
-
         console.log(error);
-
         res.status(500).json({
             mensaje: "Error al obtener productos"
         });
-
     }
 
 };
@@ -219,6 +246,73 @@ exports.crearManteleria = async (req, res) => {
 
     }
 
+};
+
+
+// =====================================
+// ACTUALIZAR PRODUCTO (ADMIN)
+// =====================================
+
+exports.actualizarProducto = async (req, res) => {
+
+    const { id, categoria } = req.params;
+    const datos = req.body;
+
+    const validStates = ['disponible', 'rentado', 'en_limpieza', 'en_reparacion'];
+
+    try {
+
+        let query;
+        const params = [];
+
+        if (categoria === "cristaleria") {
+            const campos = [];
+            const allowed = ['codigo_sku', 'nombre', 'tipo', 'material', 'precio_dia', 'cantidad_disponible', 'estado'];
+            allowed.forEach((field) => {
+                if (datos[field] !== undefined) {
+                    if (field === 'estado' && !validStates.includes(datos[field])) return;
+                    campos.push(`${field}=?`);
+                    params.push(datos[field]);
+                }
+            });
+
+            if (campos.length === 0) {
+                return res.status(400).json({ mensaje: "No hay campos válidos para actualizar" });
+            }
+
+            query = `UPDATE cristaleria SET ${campos.join(', ')} WHERE id_cristaleria=?`;
+            params.push(id);
+
+        } else if (categoria === "manteleria") {
+            const campos = [];
+            const allowed = ['codigo_sku', 'nombre', 'medida', 'color', 'material', 'tipo_tela', 'precio_dia', 'cantidad_total', 'cantidad_disponible', 'estado'];
+            allowed.forEach((field) => {
+                if (datos[field] !== undefined) {
+                    if (field === 'estado' && !validStates.includes(datos[field])) return;
+                    campos.push(`${field}=?`);
+                    params.push(datos[field]);
+                }
+            });
+
+            if (campos.length === 0) {
+                return res.status(400).json({ mensaje: "No hay campos válidos para actualizar" });
+            }
+
+            query = `UPDATE manteleria SET ${campos.join(', ')} WHERE id_manteleria=?`;
+            params.push(id);
+
+        } else {
+            return res.status(400).json({ mensaje: "Categoría inválida" });
+        }
+
+        await db.query(query, params);
+
+        res.json({ mensaje: "Producto actualizado" });
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ mensaje: "Error al actualizar producto" });
+    }
 };
 
 

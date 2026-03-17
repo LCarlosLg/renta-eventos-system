@@ -1,20 +1,60 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="es">
 <head>
-<link rel="stylesheet" href="/assets/css/admin.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel Administrador</title>
+<link rel="stylesheet" href="../assets/css/global.css">
+<link rel="stylesheet" href="../assets/css/admin.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,500;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
 
-<div class="sidebar">
-<a href="inventario.html">Inventario</a>
-<a href="pedidos.html">Pedidos</a>
-<a href="clientes.html">Clientes</a>
-</div>
+<div class="admin-container">
+    <div class="sidebar">
+        <img src="../assets/img/icono_sin_fondo.png" alt="Logotipo doña maya" class="sidebar-logo">
+        <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="inventario.html"><i class="fas fa-boxes"></i> Inventario</a>
+        <a href="pedidos.html"><i class="fas fa-shopping-cart"></i> Pedidos</a>
+        <a href="clientes.html"><i class="fas fa-users"></i> Clientes</a>
+    </div>
 
-<div class="main">
-<h1>Panel Administrador</h1>
+    <div class="main">
+        <h1>Panel Administrador</h1>
+
+        <section class="dashboard-metrics" id="dashboardMetrics">
+            <h2>Métricas</h2>
+            <div class="metrics-grid">
+                <div class="metric">
+                    <h3>Total usuarios</h3>
+                    <p id="totalUsuarios">--</p>
+                </div>
+                <div class="metric">
+                    <h3>Clientes</h3>
+                    <p id="totalClientes">--</p>
+                </div>
+                <div class="metric">
+                    <h3>Empleados</h3>
+                    <p id="totalEmpleados">--</p>
+                </div>
+                <div class="metric">
+                    <h3>Productos</h3>
+                    <p id="totalProductos">--</p>
+                </div>
+                <div class="metric">
+                    <h3>Productos disponibles</h3>
+                    <p id="productosDisponibles">--</p>
+                </div>
+                <div class="metric">
+                    <h3>Pedidos</h3>
+                    <p id="totalPedidos">--</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
 </div>
 
 </body>

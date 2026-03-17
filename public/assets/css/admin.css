@@ -1,38 +1,103 @@
-body{
-    font-family:Arial;
-    margin:0;
+body {
+    background: linear-gradient(135deg, #f3e6ff, #ffffff);
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.sidebar{
-    width:200px;
-    height:100vh;
-    background:#333;
-    color:white;
-    position:fixed;
+.admin-container {
+    background: white;
+    padding: 25px 35px 40px 35px;
+    width: 100%;
+    max-width: 1200px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
+    display: flex;
+    text-align: left;
+    gap: 20px;
 }
 
-.sidebar a{
-    display:block;
-    padding:15px;
-    color:white;
-    text-decoration:none;
+.sidebar {
+    width: 250px;
+    background: linear-gradient(45deg, #8a2be2, #b832c5);
+    color: white;
+    border-radius: 18px;
+    padding: 25px 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.sidebar a:hover{
-    background:#ff7a00;
+.sidebar-logo {
+    width: 120px;
+    height: auto;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.35));
+    transition: transform 0.3s ease;
 }
 
-.main{
-    margin-left:200px;
-    padding:20px;
+.sidebar-logo:hover {
+    transform: scale(1.08);
 }
 
-table{
-    width:100%;
-    border-collapse:collapse;
+.sidebar a {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 12px 18px;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: 0.3s;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    border-radius: 12px;
+    margin-bottom: 8px;
 }
 
-th,td{
-    padding:10px;
-    border-bottom:1px solid #ccc;
+.sidebar a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(5px);
+}
+
+.sidebar a i {
+    margin-right: 10px;
+}
+
+.main {
+    flex: 1;
+    padding: 20px;
+}
+
+.main h1 {
+    color: #333;
+    font-weight: 600;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #ccc;
+    text-align: left;
+}
+
+th {
+    background: #f3e6ff;
+    color: #8a2be2;
+    font-weight: 600;
 }

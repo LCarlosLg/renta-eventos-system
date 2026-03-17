@@ -3,26 +3,22 @@ const router = express.Router();
 
 const verificarRol = require('../middlewares/verificarRol');
 const verificarToken = require('../middlewares/verificarToken');
+const adminController = require('../controllers/admin.controller');
 
 // Solo ADMIN (rol 1)
 router.use(verificarToken, verificarRol([1]));
 
-// Gestionar usuarios
-router.get('/usuarios', (req, res) => {
-    res.json({ mensaje: "Lista de usuarios" });
-});
+// Dashboard métricas
+router.get('/dashboard', adminController.obtenerDashboard);
 
-router.delete('/usuarios/:id', (req, res) => {
-    res.json({ mensaje: "Usuario eliminado" });
-});
+// Usuarios
+router.get('/usuarios', adminController.listarUsuarios);
+router.put('/usuarios/:id/estado', adminController.cambiarEstadoUsuario);
 
-// Gestionar productos
-router.post('/productos', (req, res) => {
-    res.json({ mensaje: "Producto creado" });
-});
+// Exportaciones
+router.get('/export/clientes', adminController.exportarClientesCSV);
 
-router.delete('/productos/:id', (req, res) => {
-    res.json({ mensaje: "Producto eliminado" });
-});
+// Respaldo de base de datos (JSON)
+router.get('/respaldo', adminController.respaldoJSON);
 
 module.exports = router;

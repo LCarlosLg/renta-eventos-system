@@ -100,7 +100,7 @@ const login = async (req, res) => {
 
         if (usuario.estado !== "activo") {
             return res.status(403).json({
-                mensaje: "Usuario inactivo"
+                mensaje: `Usuario ${usuario.estado}`
             });
         }
 
