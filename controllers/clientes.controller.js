@@ -1,6 +1,24 @@
 const db = require('../db/renta_manteleria_cristaleria_db');
+const multer = require('multer');
+const path = require('path');
 
-// Obtener perfil cliente
+// COonfiguración de multer para subir imágenes de perfil
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, path.join(__dirname, '../public/uploads'));
+    },
+    filename: (req, file, cb) => {
+        const nombre = Date.now() + path.extname(file.originalname);
+        cb(null, nombre);
+    }
+});
+
+const upload = multer({ storage }).single('imagen');
+
+
+// Obtener perfil del cliente
+
 exports.obtenerPerfil = async (req, res) => {
 
     const usuarioId = req.usuario.id;
@@ -16,32 +34,59 @@ exports.obtenerPerfil = async (req, res) => {
         res.json(usuario[0]);
 
     } catch (error) {
+        console.error(error);
         res.status(500).json({ mensaje: "Error al obtener perfil" });
     }
 };
 
-// Actualizar perfil
-exports.actualizarPerfil = async (req, res) => {
 
-    const usuarioId = req.usuario.id;
-    const { nombre, telefono, direccion, notas, preferencias } = req.body;
+// Actualizar perfil del cliente (con opción a subir imagen) 
 
-    try {
+exports.actualizarPerfil = (req, res) => {
 
-        await db.query(`
-            UPDATE usuarios
-            SET nombre=?,telefono=?,direccion=?,notas=?,preferencias=?
-            WHERE id_usuario=?
-        `, [nombre, telefono, direccion, notas, preferencias, usuarioId]);
+    upload(req, res, async (err) => {
 
-        res.json({ mensaje: "Perfil actualizado" });
+        if (err) {
+            return res.status(500).json({ mensaje: "Error al subir imagen" });
+        }
 
-    } catch (error) {
-        res.status(500).json({ mensaje: "Error al actualizar perfil" });
-    }
+        const usuarioId = req.usuario.id;
+        const { nombre, telefono, direccion, notas, preferencias } = req.body;
+
+        const imagen = req.file ? req.file.filename : null;
+
+        try {
+
+            let query = `
+                UPDATE usuarios
+                SET nombre=?, telefono=?, direccion=?, notas=?, preferencias=?
+            `;
+
+            let params = [nombre, telefono, direccion, notas, preferencias];
+
+            if(imagen){
+                query += `, imagen=?`;
+                params.push(imagen);
+            }
+
+            query += ` WHERE id_usuario=?`;
+            params.push(usuarioId);
+
+            await db.query(query, params);
+
+            res.json({ mensaje: "Perfil actualizado correctamente" });
+
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ mensaje: "Error al actualizar perfil" });
+        }
+
+    });
 };
 
-// Historial de rentas del cliente
+
+// Historial de pedidos del cliente (con detalle de productos)
+
 exports.historialRentas = async (req, res) => {
 
     const usuarioId = req.usuario.id;
@@ -69,24 +114,7 @@ exports.historialRentas = async (req, res) => {
         res.json(historial);
 
     } catch (error) {
+        console.error(error);
         res.status(500).json({ mensaje: "Error al obtener historial" });
-    }
-};
-
-// Ver todos los clientes (admin)
-exports.obtenerClientes = async (req, res) => {
-
-    try {
-
-        const [clientes] = await db.query(`
-            SELECT id_usuario,nombre,email,telefono
-            FROM usuarios
-            WHERE id_rol=3
-        `);
-
-        res.json(clientes);
-
-    } catch (error) {
-        res.status(500).json({ mensaje: "Error al obtener clientes" });
     }
 };

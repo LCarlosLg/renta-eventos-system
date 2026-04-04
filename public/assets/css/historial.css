@@ -1,0 +1,131 @@
+/* Historial de compras */
+
+body{
+    background: linear-gradient(135deg, #f3e6ff, #ffffff);
+}
+
+/* Banner del historial */
+.banner-historial{
+    background: linear-gradient(45deg, #8a2be2, #b832c5);
+    color:white;
+    padding:30px;
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    margin-bottom:20px;
+}
+
+.banner-historial h1{
+    margin:0;
+}
+
+.banner-historial p{
+    opacity:0.9;
+}
+
+/* Tarjeta del historial */
+
+.card-historial{
+    border:none;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 10px 20px rgba(0,0,0,0.1);
+    transition:0.3s;
+    background:white;
+}
+
+.card-historial:hover{
+    transform: translateY(-5px);
+}
+
+/* Header */
+.card-historial .card-header{
+    background: linear-gradient(45deg, #8a2be2, #b832c5);
+    color:white;
+    font-weight:600;
+    padding:12px;
+}
+
+/* Cuerpo */
+.card-historial .card-body{
+    padding:15px;
+}
+
+/* Producto */
+.producto-item{
+    border-bottom:1px solid #eee;
+    padding:6px 0;
+    font-size:14px;
+}
+
+/* Total */
+.total{
+    margin-top:10px;
+    font-weight:bold;
+    color:#8a2be2;
+}
+
+/* Botón de detalle */
+
+.btn-detalle{
+    width:100%;
+    margin-top:10px;
+    padding:10px;
+    border:none;
+    border-radius:10px;
+    background: linear-gradient(45deg, #8a2be2, #b832c5);
+    color:white;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.btn-detalle:hover{
+    transform: scale(1.05);
+}
+
+/* Estados */
+
+.estado{
+    padding:5px 12px;
+    border-radius:10px;
+    color:white;
+    font-size:0.85rem;
+    display:inline-block;
+    margin-bottom:10px;
+}
+
+.entregado{
+    background:#4caf50;
+}
+
+.pendiente{
+    background:lab(91.83% -10.66 83.42);
+}
+
+.cancelado{
+    background:#e53935;
+}
+
+.card-body i{
+    margin-right:5px;
+    color:#8a2be2;
+}
+
+/* Modal */
+
+.modal-content{
+    border-radius:15px;
+}
+
+.modal-header{
+    background: linear-gradient(45deg, #8a2be2, #b832c5);
+    color:white;
+}
+
+/* Responsive */
+
+@media(max-width:768px){
+    .banner-historial{
+        padding:20px;
+    }
+}

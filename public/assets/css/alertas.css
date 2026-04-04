@@ -1,0 +1,68 @@
+/* Alertas personalizadas con (SweetAlert2) */
+
+/* Contenedor */
+.swal2-popup {
+    border-radius: 20px !important;
+    font-family: 'Playfair Display', serif;
+}
+
+/* Titulo */
+.swal2-title {
+    color: #8a2be2 !important;
+    font-weight: 600;
+}
+
+/* TEXTO */
+.swal2-html-container {
+    font-size: 15px;
+    color: #555;
+}
+
+/* Botón de confirmar */
+.swal2-confirm {
+    background: linear-gradient(45deg,#8a2be2,#b832c5) !important;
+    border: none !important;
+    border-radius: 10px !important;
+    padding: 10px 20px !important;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.swal2-confirm:hover {
+    transform: scale(1.05);
+    opacity: 0.95;
+}
+
+/* Botón de cancelar */
+.swal2-cancel {
+    border-radius: 10px !important;
+    padding: 10px 20px !important;
+    font-weight: 600;
+}
+
+/* Icono */
+.swal2-icon.swal2-warning {
+    border-color: #8a2be2 !important;
+    color: #8a2be2 !important;
+}
+
+.swal2-icon.swal2-success {
+    border-color: #8a2be2 !important;
+    color: #8a2be2 !important;
+}
+
+/* Animación */
+.swal2-show {
+    animation: fadeInScale 0.3s ease;
+}
+
+@keyframes fadeInScale {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

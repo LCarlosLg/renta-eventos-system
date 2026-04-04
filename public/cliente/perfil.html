@@ -4,52 +4,159 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Perfil de Cliente</title>
-<link rel="stylesheet" href="../assets/css/global.css">
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Css -->
 <link rel="stylesheet" href="../assets/css/cliente.css">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,500;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/perfil.css">
+
+<!-- Fuentes -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 
 <body>
 
-<div class="cliente-container">
-    <header>
-        <div class="brand">
-            <img src="../assets/img/icono_sin_fondo.png" alt="Logotipo doña maya" class="header-logo">
-            <h2>Renta Mantelería y Cristalería</h2>
-        </div>
-        <nav>
-            <a href="catalogo.html"><i class="fas fa-store"></i> Catálogo</a>
-            <a href="carrito.html"><i class="fas fa-shopping-cart"></i> Carrito</a>
-            <a href="historial.html"><i class="fas fa-history"></i> Historial</a>
-            <a href="perfil.html"><i class="fas fa-user"></i> Perfil</a>
-        </nav>
-    </header>
+<!-- Barra de navegación -->
+<nav class="navbar navbar-expand-lg shadow-sm">
+<div class="container-fluid">
 
-    <div class="container">
-        <h1>Perfil</h1>
-        <form id="perfilForm">
-            <label>Nombre</label>
-            <input type="text" id="nombre" />
+    <a class="navbar-brand fw-bold" href="dashboard.html">
+        🛒 Renta Doña Maya
+    </a>
 
-            <label>Teléfono</label>
-            <input type="text" id="telefono" />
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-            <label>Dirección</label>
-            <input type="text" id="direccion" />
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
 
-            <label>Notas</label>
-            <textarea id="notas" rows="3"></textarea>
+            <li class="nav-item"><a class="nav-link" href="dashboard.html">Inicio</a></li>
+            <li class="nav-item"><a class="nav-link" href="catalogo.html">Catálogo</a></li>
+            <li class="nav-item"><a class="nav-link" href="carrito.html">Carrito</a></li>
+            <li class="nav-item"><a class="nav-link" href="historial.html">Historial</a></li>
+            <li class="nav-item"><a class="nav-link active" href="perfil.html">Perfil</a></li>
 
-            <label>Preferencias</label>
-            <textarea id="preferencias" rows="3"></textarea>
-
-            <button type="submit">Guardar</button>
-            <p id="mensaje"></p>
-        </form>
+        </ul>
     </div>
+
+</div>
+</nav>
+
+<!-- Contenido -->
+<div class="container mt-4">
+
+    <!-- Banner -->
+    <div class="banner-perfil">
+        <h1><i class="fas fa-user"></i> Mi Perfil</h1>
+        <p>Actualiza tu información personal</p>
+    </div>
+
+    <!-- Card del perfil -->
+    <div class="perfil-card">
+
+        <!-- Foto -->
+        <div class="foto-container text-center">
+            <img 
+                id="preview" 
+                src="../assets/img/icono_sin_fondo.png" 
+                alt="Foto perfil"
+                class="img-fluid rounded-circle shadow"
+            >
+
+            <label class="btn btn-subir mt-3">
+                <i class="fas fa-camera"></i> Cambiar foto
+                <input type="file" id="imagen" accept="image/*" hidden>
+            </label>
+        </div>
+
+        <!-- Form -->
+        <form id="perfilForm" enctype="multipart/form-data">
+
+            <!-- ===== Sección 1 ===== -->
+            <h5 class="mb-3 text-center titulo-seccion">
+                <i class="fas fa-id-card"></i> Información Personal
+            </h5>
+
+            <div class="row">
+
+                <div class="col-md-6 col-12 mb-3">
+                    <label class="form-label">Nombre</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        <input type="text" id="nombre" class="form-control" placeholder="Tu nombre completo">
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-12 mb-3">
+                    <label class="form-label">Teléfono</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                        <input type="text" id="telefono" class="form-control" placeholder="Ej: 6621234567">
+                    </div>
+                </div>
+
+                <div class="col-md-12 mb-3">
+                    <label class="form-label">Dirección</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                        <input type="text" id="direccion" class="form-control" placeholder="Tu dirección completa">
+                    </div>
+                </div>
+
+            </div>
+
+            <hr class="my-4">
+
+            <!-- ===== Sección 2 ===== -->
+            <h5 class="mb-3 text-center titulo-seccion">
+                <i class="fas fa-star"></i> Información Adicional
+            </h5>
+
+            <div class="row">
+
+                <div class="col-md-6 col-12 mb-3">
+                    <label class="form-label">Notas</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-sticky-note"></i></span>
+                        <textarea id="notas" class="form-control" rows="3" placeholder="Notas adicionales"></textarea>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-12 mb-3">
+                    <label class="form-label">Preferencias</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-heart"></i></span>
+                        <textarea id="preferencias" class="form-control" rows="3" placeholder="Tus preferencias"></textarea>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Botón -->
+            <div class="text-center mt-4">
+                <button type="submit" class="btn-guardar px-4 py-2">
+                    <i class="fas fa-save"></i> Guardar Cambios
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
 </div>
 
+<!-- Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- SweetAlert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- JS -->
 <script src="../assets/js/perfil.js"></script>
 
 </body>
