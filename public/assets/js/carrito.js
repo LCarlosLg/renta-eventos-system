@@ -1,16 +1,49 @@
+// Variables
 const lista = document.getElementById("carrito");
 
 let carritoData = [];
 let carritoAgrupado = [];
 
-/* Cargar carrito */
+// =======================
+// 👤 AVATAR NAVBAR
+// =======================
+async function cargarAvatarNavbar(){
+
+    const token = localStorage.getItem("token");
+    if(!token) return;
+
+    try{
+        const res = await fetch('/api/clientes/perfil', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+        if(!res.ok) return;
+
+        const data = await res.json();
+
+        if(data.imagen){
+            const avatar = document.getElementById("avatarNavbar");
+
+            if(avatar){
+                avatar.src = `/uploads/${data.imagen}?t=${Date.now()}`;
+            }
+        }
+
+    }catch(err){
+        console.error("Error avatar:", err);
+    }
+}
+
+// Cargar carrito
 async function cargarCarrito(){
 
     const token = localStorage.getItem("token");
 
     const res = await fetch("/api/carrito",{
         headers:{
-            "Authorization":`Bearer ${token}`
+            "Authorization": `Bearer ${token}`
         }
     });
 
@@ -20,7 +53,7 @@ async function cargarCarrito(){
     renderCarrito();
 }
 
-/*Agrupar carrito */
+// Agrupar carrito
 function agruparCarrito(){
 
     const mapa = {};
@@ -44,7 +77,7 @@ function agruparCarrito(){
     carritoAgrupado = Object.values(mapa);
 }
 
-/* Renderizado del carrito */
+// Renderizado
 function renderCarrito(){
 
     lista.innerHTML = "";
@@ -82,7 +115,7 @@ function renderCarrito(){
 
             <td>
                 <button class="btn-eliminar" onclick="confirmarEliminar('${item.categoria}', ${item.id_producto})">
-                    🗑️
+                <ion-icon name="trash-bin"></ion-icon>
                 </button>
             </td>
         </tr>
@@ -92,7 +125,7 @@ function renderCarrito(){
     actualizarTotales();
 }
 
-/* Aumentar */
+// Aumentar
 async function aumentar(categoria, id){
 
     const token = localStorage.getItem("token");
@@ -101,7 +134,7 @@ async function aumentar(categoria, id){
         method:"POST",
         headers:{
             "Content-Type":"application/json",
-            "Authorization":`Bearer ${token}`
+            "Authorization": `Bearer ${token}`
         },
         body:JSON.stringify({
             categoria,
@@ -113,7 +146,7 @@ async function aumentar(categoria, id){
     cargarCarrito();
 }
 
-/* Disminuir */
+// Disminuir
 async function disminuir(categoria, id){
 
     const item = carritoAgrupado.find(p => p.id_producto === id);
@@ -128,14 +161,14 @@ async function disminuir(categoria, id){
     await fetch(`/api/carrito/${item.ids[0]}`,{
         method:"DELETE",
         headers:{
-            "Authorization":`Bearer ${token}`
+            "Authorization": `Bearer ${token}`
         }
     });
 
     cargarCarrito();
 }
 
-/* Confirmar antes de eliminar */
+// Confirmar eliminar
 function confirmarEliminar(categoria, id){
 
     Swal.fire({
@@ -152,7 +185,7 @@ function confirmarEliminar(categoria, id){
     });
 }
 
-/* Elimina todos los elementos del carrito */
+// Eliminar todo
 async function eliminarTodo(categoria, id){
 
     const item = carritoAgrupado.find(p => p.id_producto === id);
@@ -162,7 +195,7 @@ async function eliminarTodo(categoria, id){
         await fetch(`/api/carrito/${idCarrito}`,{
             method:"DELETE",
             headers:{
-                "Authorization":`Bearer ${token}`
+                "Authorization": `Bearer ${token}`
             }
         });
     }
@@ -177,7 +210,7 @@ async function eliminarTodo(categoria, id){
     cargarCarrito();
 }
 
-/*  Actualizar totales */
+// Totales
 function actualizarTotales(){
 
     let total = 0;
@@ -192,5 +225,32 @@ function actualizarTotales(){
     document.getElementById("totalProductos").innerText = totalProductos;
 }
 
-/* Inicio */
+// Logica para que el boton de cerrar sesión funcione en las pantallas correspondientes
+function cerrarSesion(){
+
+    Swal.fire({
+        title: '¿Cerrar sesión?',
+        text: '¿Estás seguro de que quieres salir?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, salir',
+        cancelButtonText: 'Cancelar',
+        confirmButtonColor: '#7b2ff7',
+        cancelButtonColor: '#aaa'
+    }).then((result) => {
+
+        if(result.isConfirmed){
+
+            // Limpia datos de sesión (ajusta si usas otra cosa)
+            localStorage.removeItem("usuario");
+
+            //  Redirigir al login
+            window.location.href = "../auth/login.html";
+        }
+
+    });
+}
+
+// Inicio
 cargarCarrito();
+cargarAvatarNavbar();

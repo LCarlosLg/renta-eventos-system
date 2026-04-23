@@ -8,82 +8,96 @@
 <!-- Bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Tus estilos -->
+<!-- CSS -->
 <link rel="stylesheet" href="../assets/css/cliente.css">
 
 <!-- Fuentes -->
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,500;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<!-- Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<!-- SweetAlert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 
 <body>
 
-<!-- Barra de navegación -->
+<!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg shadow-sm">
 <div class="container-fluid">
 
-    <!-- Logo -->
-    <a class="navbar-brand fw-bold" href="dashboard.html">
-    🛒 Renta Doña Maya
+    <!-- LOGO -->
+    <a class="navbar-brand fw-bold d-flex align-items-center">
+        <img src="../assets/img/icono_sin_fondo.png" alt="Logo" class="logo-navbar">
+        Renta Doña Maya
     </a>
 
-    <!-- Botón responsive -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll">
-    <span class="navbar-toggler-icon"></span>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- Contenido -->
-    <div class="collapse navbar-collapse" id="navbarScroll">
+    <div class="collapse navbar-collapse" id="navbarNav">
 
-    <ul class="navbar-nav me-auto">
-
-        <li class="nav-item">
-        <a class="nav-link active" href="dashboard.html">Inicio</a>
-        </li>
-
-        <!-- Catálogo -->
-        <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-            Catálogo
-        </a>
-        <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="catalogo.html?tipo=manteleria">Mantelería</a></li>
-            <li><a class="dropdown-item" href="catalogo.html?tipo=cristaleria">Cristalería</a></li>
+        <!-- MENÚ -->
+        <ul class="navbar-nav me-auto">
+            <li class="nav-item"><a class="nav-link active">Inicio</a></li>
+            <li class="nav-item"><a class="nav-link" href="catalogo.html">Catálogo</a></li>
+            <li class="nav-item"><a class="nav-link" href="carrito.html">Carrito</a></li>
+            <li class="nav-item"><a class="nav-link" href="historial.html">Historial</a></li>
         </ul>
-        </li>
 
-        <li class="nav-item">
-        <a class="nav-link" href="carrito.html">Carrito</a>
-        </li>
+        <!-- 🔍 BUSCADOR -->
+        <form class="d-flex me-3" onsubmit="return false;">
+            <input 
+                id="search" 
+                class="form-control me-2" 
+                type="search" 
+                placeholder="Buscar producto..."
+            >
+            <button id="btnBuscar" class="btn btn-dark">Buscar</button>
+        </form>
 
-        <li class="nav-item">
-        <a class="nav-link" href="historial.html">Historial</a>
-        </li>
+        <!-- 🔥 ICONOS DERECHA -->
+        <div class="d-flex align-items-center gap-3">
 
-        <li class="nav-item">
-        <a class="nav-link" href="perfil.html">Perfil</a>
-        </li>
+            <!-- FAVORITOS -->
+            <div class="icono-nav">
+                <i class="fa-regular fa-heart"></i>
+            </div>
 
-    </ul>
+            <!-- NOTIFICACIONES -->
+            <div class="icono-nav position-relative">
+                <i class="fa-regular fa-bell"></i>
+                <span class="badge-noti">3</span>
+            </div>
 
-    <!-- Buscador -->
-    <form class="d-flex" onsubmit="return false;">
-        <input 
-        id="search" 
-        class="form-control me-2" 
-        type="search" 
-        placeholder="Buscar productos..."
-        >
-        <button id="btnBuscar">Buscar</button>
-    </form>
+            <!-- PERFIL -->
+            <div class="dropdown">
+                <a href="#" 
+                class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" 
+                data-bs-toggle="dropdown">
+                    <img id="avatarNavbar" src="https://i.pravatar.cc/40" class="avatar">
+                </a>
+
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="perfil.html">Mi Perfil</a></li>
+                    <li><a class="dropdown-item" href="historial.html">Mis Rentas</a></li>
+                    <li><a class="dropdown-item" href="#">Configuración</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item text-danger" href="#" onclick="cerrarSesion()">Cerrar sesión</a></li>
+                </ul>
+            </div>
+
+        </div>
 
     </div>
 </div>
 </nav>
 
-<!-- Contenido principal -->
-<div class="container">
+<!-- CONTENIDO -->
+<div class="container fade-in">
 
     <!-- Banner -->
     <div class="banner">
@@ -91,16 +105,147 @@
         <p>Renta de mantelería y cristalería para tus eventos</p>
     </div>
 
-    <!-- Productos -->
-    <div class="row" id="productos"></div>
+    <!-- 🎠 CARRUSEL -->
+    <div id="carouselEventos" class="carousel slide mt-4" data-bs-interval="5000">
+
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselEventos" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#carouselEventos" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#carouselEventos" data-bs-slide-to="2"></button>
+            <button type="button" data-bs-target="#carouselEventos" data-bs-slide-to="3"></button>
+            <button type="button" data-bs-target="#carouselEventos" data-bs-slide-to="4"></button>
+            <button type="button" data-bs-target="#carouselEventos" data-bs-slide-to="5"></button>
+        </div>
+
+        <div class="carousel-inner">
+
+            <div class="carousel-item active">
+                <img src="../assets/img/evento1.jpg" class="d-block w-100">
+                <div class="carousel-caption">
+                    <h2>Eventos elegantes</h2>
+                    <p>Decoraciones profesionales para tus eventos</p>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <img src="../assets/img/evento2.jpg" class="d-block w-100">
+                <div class="carousel-caption">
+                    <h2>Mesas decoradas</h2>
+                    <p>Haz que tu evento luzca increíble</p>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <img src="../assets/img/evento3.jpg" class="d-block w-100">
+                <div class="carousel-caption">
+                    <h2>Calidad premium</h2>
+                    <p>Materiales de alta calidad</p>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <img src="../assets/img/evento4.jpg" class="d-block w-100">
+                <div class="carousel-caption">
+                    <h2>Bodas elegantes</h2>
+                    <p>Haz de tu boda un momento inolvidable</p>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <img src="../assets/img/evento5.jpg" class="d-block w-100">
+                <div class="carousel-caption">
+                    <h2>Eventos corporativos</h2>
+                    <p>Presentaciones profesionales y modernas</p>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <img src="../assets/img/evento6.jpg" class="d-block w-100">
+                <div class="carousel-caption">
+                    <h2>Fiestas familiares</h2>
+                    <p>Momentos especiales con estilo</p>
+                </div>
+            </div>
+
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselEventos" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselEventos" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+
+    </div>
+
+    <!-- Categorías -->
+    <div class="categorias">
+        <a href="catalogo.html?tipo=manteleria" class="categoria-card">
+            <i class="fa-solid fa-table"></i>
+            <h3>Mantelería</h3>
+        </a>
+
+        <a href="catalogo.html?tipo=cristaleria" class="categoria-card">
+            <i class="fa-solid fa-wine-glass"></i>
+            <h3>Cristalería</h3>
+        </a>
+    </div>
+
+    <!-- Recomendados -->
+    <section class="recomendados">
+        <h2 class="text-center mt-5">Recomendados</h2>
+        <div class="row" id="recomendados"></div>
+    </section>
+
+    <!-- Extras -->
+    <div class="extras">
+
+        <div class="extra-card">
+            <i class="fa-solid fa-ruler-combined"></i>
+            <h3>Guía de medidas</h3>
+            <p>Consulta tamaños ideales</p>
+            <button onclick="verGuia()">Ver guía</button>
+        </div>
+
+        <div class="extra-card">
+            <i class="fa-solid fa-headset"></i>
+            <h3>Soporte</h3>
+            <p>¿Necesitas ayuda?</p>
+            <button onclick="toggleChat()">Contactar</button>
+        </div>
+
+    </div>
 
 </div>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- WHATSAPP -->
+<a href="https://wa.me/6221148880" target="_blank" class="whatsapp">
+    <i class="fa-brands fa-whatsapp"></i>
+</a>
+
+<!-- CHAT -->
+<div id="chatBox" class="chat-box">
+
+    <div class="chat-header">
+        Soporte
+        <span onclick="toggleChat()">✖</span>
+    </div>
+
+    <div id="chatMessages" class="chat-body">
+        <p><b>Soporte:</b> Hola ¿En qué podemos ayudarte?</p>
+    </div>
+
+    <div class="chat-input">
+        <input type="text" id="chatInput" placeholder="Escribe tu mensaje...">
+        <button onclick="enviarMensaje()">➤</button>
+    </div>
+
+</div>
 
 <!-- JS -->
-<script src="../assets/js/catalogo.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/cliente.js"></script>
 
 </body>
 </html>

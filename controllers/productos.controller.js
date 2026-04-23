@@ -1,15 +1,13 @@
 const db = require('../db/renta_manteleria_cristaleria_db');
 
 
-// =====================================
 // OBTENER TODO EL CATALOGO
-// =====================================
-
 exports.obtenerProductos = async (req, res) => {
 
     const { categoria, estado, q } = req.query;
 
     // Por defecto solo mostramos productos disponibles en el catálogo público.
+
     const estadoFiltro = estado || 'disponible';
 
     const filtros = [];

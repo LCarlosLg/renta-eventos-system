@@ -30,6 +30,13 @@ const productosRoutes = require('./routes/productos.routes');
 const carritoRoutes = require('./routes/carrito.routes');
 const pedidosRoutes = require('./routes/pedidos.routes');
 
+//SOPORTE (AGREGADO)
+const soporteRoutes = require('./routes/soporte.routes');
+
+// =======================
+// USO DE RUTAS
+// =======================
+
 app.use('/api/auth', authRoutes);
 app.use('/api/clientes', clienteRoutes);
 app.use('/api/empleado', empleadoRoutes);
@@ -38,6 +45,9 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/productos', productosRoutes);
 app.use('/api/carrito', carritoRoutes);
 app.use('/api/pedidos', pedidosRoutes);
+
+// SOPORTE ACTIVO
+app.use('/api/soporte', soporteRoutes);
 
 // =======================
 // RUTA PRINCIPAL

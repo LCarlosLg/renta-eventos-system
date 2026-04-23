@@ -5,23 +5,36 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Historial de Rentas</title>
 
+<!-- Bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
+<!-- CSS -->
 <link rel="stylesheet" href="../assets/css/cliente.css">
 <link rel="stylesheet" href="../assets/css/historial.css">
 
+<!-- Fuentes -->
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,600&display=swap" rel="stylesheet">
+
+<!-- Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<!-- SweetAlert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body>
 
-<!-- Barra de navegación -->
+<!-- =========================
+NAVBAR COMPLETA 🔥
+========================= -->
 <nav class="navbar navbar-expand-lg shadow-sm">
 <div class="container-fluid">
 
-    <a class="navbar-brand fw-bold" href="dashboard.html">
-        🛒 Renta Doña Maya
+    <!-- LOGO -->
+    <a class="navbar-brand fw-bold d-flex align-items-center">
+        <img src="../assets/img/icono_sin_fondo.png" class="logo-navbar">
+        Renta Doña Maya
     </a>
 
     <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarScroll">
@@ -30,32 +43,77 @@
 
     <div class="collapse navbar-collapse" id="navbarScroll">
 
+        <!-- MENÚ -->
         <ul class="navbar-nav me-auto">
-            <li class="nav-item"><a class="nav-link" href="dashboard.html">Inicio</a></li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="dashboard.html">Inicio</a>
+            </li>
 
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Catálogo</a>
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                    Catálogo
+                </a>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="catalogo.html?tipo=manteleria">Mantelería</a></li>
                     <li><a class="dropdown-item" href="catalogo.html?tipo=cristaleria">Cristalería</a></li>
                 </ul>
             </li>
 
-            <li class="nav-item"><a class="nav-link" href="carrito.html">Carrito</a></li>
-            <li class="nav-item"><a class="nav-link active" href="historial.html">Historial</a></li>
-            <li class="nav-item"><a class="nav-link" href="perfil.html">Perfil</a></li>
+            <li class="nav-item">
+                <a class="nav-link" href="carrito.html">Carrito</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link active" href="historial.html">Historial</a>
+            </li>
+
         </ul>
 
-        <form class="d-flex">
-            <input class="form-control me-2" placeholder="Buscar producto...">
+        <!-- BUSCADOR -->
+        <form class="d-flex me-3" onsubmit="return false;">
+            <input id="search" class="form-control me-2" placeholder="Buscar producto...">
             <button class="btn btn-dark">Buscar</button>
         </form>
+
+        <!-- ICONOS DERECHA -->
+        <div class="d-flex align-items-center gap-3">
+
+            <!-- FAVORITOS -->
+            <div class="icono-nav">
+                <i class="fa-regular fa-heart"></i>
+            </div>
+
+            <!-- NOTIFICACIONES -->
+            <div class="icono-nav position-relative">
+                <i class="fa-regular fa-bell"></i>
+                <span class="badge-noti">3</span>
+            </div>
+
+            <!-- PERFIL -->
+            <div class="dropdown">
+                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown">
+                    <img id="avatarNavbar" src="https://i.pravatar.cc/40" class="avatar">
+                </a>
+
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="perfil.html">Mi Perfil</a></li>
+                    <li><a class="dropdown-item" href="historial.html">Mis Rentas</a></li>
+                    <li><a class="dropdown-item" href="#">Configuración</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item text-danger" href="#" onclick="cerrarSesion()">Cerrar sesión</a></li>
+                </ul>
+            </div>
+
+        </div>
 
     </div>
 </div>
 </nav>
 
-<!-- Contenido -->
+<!-- =========================
+CONTENIDO
+========================= -->
 <div class="container mt-4">
 
     <div class="banner-historial">
@@ -67,14 +125,16 @@
 
 </div>
 
-<!-- Modal -->
+<!-- =========================
+MODAL DETALLE
+========================= -->
 <div class="modal fade" id="modalDetalle">
     <div class="modal-dialog modal-lg">
     <div class="modal-content">
 
         <div class="modal-header">
-        <h5 class="modal-title">Detalle del Pedido</h5>
-        <button class="btn-close" data-bs-dismiss="modal"></button>
+            <h5 class="modal-title">Detalle del Pedido</h5>
+            <button class="btn-close" data-bs-dismiss="modal"></button>
         </div>
 
         <div class="modal-body" id="detalleContenido"></div>
@@ -83,7 +143,10 @@
     </div>
 </div>
 
+<!-- Bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- JS -->
 <script src="../assets/js/historial.js"></script>
 
 </body>

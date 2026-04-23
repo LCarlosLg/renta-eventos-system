@@ -1,70 +1,107 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Carrito</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito</title>
 
-<!-- Bootstrap -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Css -->
-<link rel="stylesheet" href="../assets/css/cliente.css">
-<link rel="stylesheet" href="../assets/css/carrito.css">
-<link rel="stylesheet" href="../assets/css/alertas.css">
+    <!-- Css -->
+    <link rel="stylesheet" href="../assets/css/cliente.css">
+    <link rel="stylesheet" href="../assets/css/carrito.css">
+    <link rel="stylesheet" href="../assets/css/alertas.css">
 
-<!-- Fuentes -->
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
 
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
 
-<!-- Barra de navegación -->
+<!-- Navbar completa -->
 <nav class="navbar navbar-expand-lg shadow-sm">
-  <div class="container-fluid">
+    <div class="container-fluid">
 
-    <a class="navbar-brand fw-bold" href="dashboard.html">
-      🛒 Renta Doña Maya
-    </a>
+        <!-- Logo de la empresa -->
+        <a class="navbar-brand fw-bold d-flex align-items-center">
+            <img src="../assets/img/icono_sin_fondo.png" class="logo-navbar">
+            Renta Doña Maya
+        </a>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <div class="collapse navbar-collapse" id="navbarScroll">
+        <div class="collapse navbar-collapse" id="navbarScroll">
 
-      <ul class="navbar-nav me-auto">
+            <!-- Menú de navegación entre pantallas-->
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="dashboard.html">Inicio</a>
+                </li>
 
-        <li class="nav-item">
-          <a class="nav-link" href="dashboard.html">Inicio</a>
-        </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="catalogo.html">Catálogo</a>
+                </li>
 
-        <li class="nav-item">
-          <a class="nav-link" href="catalogo.html">Catálogo</a>
-        </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Carrito</a>
+                </li>
 
-        <!-- Activo -->
-        <li class="nav-item">
-          <a class="nav-link active nav-active" href="#">Carrito</a>
-        </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="historial.html">Historial</a>
+                </li>
+            </ul>
 
-        <li class="nav-item">
-          <a class="nav-link" href="historial.html">Historial</a>
-        </li>
+            <!--Buscador en la navbar-->
+            <form class="d-flex me-3" onsubmit="return false;">
+                <input id="search" class="form-control me-2" type="search" placeholder="Buscar producto...">
+                <button class="btn btn-dark">Buscar</button>
+            </form>
 
-        <li class="nav-item">
-          <a class="nav-link" href="perfil.html">Perfil</a>
-        </li>
+            <!--Iconos colocados del lado derecho incluyendo el avatar del usuario-->
+            <div class="d-flex align-items-center gap-3">
 
-      </ul>
+                <!--Icono de favoritos-->
+                <div class="icono-nav">
+                    <i class="fa-regular fa-heart"></i>
+                </div>
 
+                <!--Icono de notificaciones-->
+                <div class="icono-nav position-relative">
+                    <i class="fa-regular fa-bell"></i>
+                    <span class="badge-noti">3</span>
+                </div>
+
+                <!--Parte de la navbar donde se muestra el avatar del usuario Y sus diferentes opciones-->
+                <div class="dropdown">
+                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown">
+                    <img id="avatarNavbar" src="https://i.pravatar.cc/40" class="avatar">
+                </a>
+
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="perfil.html">Mi Perfil</a></li>
+                    <li><a class="dropdown-item" href="historial.html">Mis Rentas</a></li>
+                    <li><a class="dropdown-item" href="#">Configuración</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item text-danger" href="#" onclick="cerrarSesion()">Cerrar sesión</a></li>
+                </ul>
+            </div>
+
+            </div>
+
+        </div>
     </div>
-  </div>
 </nav>
 
-<!--  Contenido -->
+<!--Contenido-->
 <div class="container">
 
     <!-- Banner -->
@@ -73,24 +110,26 @@
         <p>Administra tus productos antes de confirmar tu pedido</p>
     </div>
 
-    <!-- Card -->
+    <!--Card de productos en el carrito-->
     <div class="card mt-4 p-4">
 
-        <!-- Resumen -->
+        <!--Texto con icono que muestra la cantidad de productos en el carrito-->
         <div class="d-flex justify-content-between align-items-center mb-3">
 
-            <h5 class="m-0">
-                🧾 Productos en carrito: 
-                <span id="totalProductos">0</span>
-            </h5>
+        <h5 class="m-0 d-flex align-items-center gap-2">
+        <ion-icon name="list" class="icono"></ion-icon>
+        Productos en carrito: 
+        <span id="totalProductos">0</span>
+        </h5>
 
-            <a href="catalogo.html" class="btn-seguir">
-                ➕ Agregar más productos
-            </a>
+    <a href="catalogo.html" class="btn-seguir d-flex align-items-center gap-2">
+        <ion-icon name="add-circle" class="icono"></ion-icon>
+        Agregar más productos
+    </a>
 
         </div>
 
-        <!-- Tabla -->
+        <!--Estructura de la tabla que muestra los productos en el carrito-->
         <div class="table-responsive">
             <table class="table align-middle">
 
@@ -109,7 +148,7 @@
             </table>
         </div>
 
-        <!-- Total -->
+        <!--Codigo que muestra la cantidad total (la suma del costo de todos los productos)-->
         <div class="d-flex justify-content-between align-items-center mt-3 flex-wrap gap-3">
 
             <h3 class="m-0">
@@ -129,13 +168,13 @@
 
 </div>
 
-<!-- SweetAlert -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-<!-- Bootstrap -->
+<!--Bootstrap-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<!--iconos con mejor diseño-->
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
-<!-- JS -->
+<!--Js de carrito-->
 <script src="../assets/js/carrito.js"></script>
 
 </body>

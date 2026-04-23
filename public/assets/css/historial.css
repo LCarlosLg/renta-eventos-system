@@ -129,3 +129,113 @@ body{
         padding:20px;
     }
 }
+
+/* =========================
+ICONOS NAVBAR (NUEVO)
+========================= */
+.icono-nav{
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    position: relative;
+    transition: 0.3s;
+}
+
+.icono-nav:hover{
+    transform: scale(1.2);
+}
+
+/* Badge notificaciones */
+.badge-noti{
+    position: absolute;
+    top: -5px;
+    right: -8px;
+    background: red;
+    color: white;
+    font-size: 10px;
+    padding: 3px 6px;
+    border-radius: 50%;
+}
+
+/* Avatar perfil */
+.avatar{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
+    cursor: pointer;
+}
+
+/* Dropdown perfil */
+.dropdown-menu{
+    border-radius: 12px;
+    padding: 10px;
+}
+
+.dropdown-item{
+    font-weight: 500;
+}
+
+.dropdown-item:hover{
+    background: #f3e6ff;
+}
+
+/* Alinear iconos a la derecha */
+.navbar .d-flex{
+    align-items: center;
+    gap: 15px;
+}
+
+/* SweetAlert para el boton de cerrar sesión */
+
+/* Contenedor */
+.swal2-popup{
+    border-radius: 15px !important;
+    font-family: 'Playfair Display', serif;
+    padding: 25px;
+}
+
+/* Título */
+.swal2-title{
+    color: #7b2ff7;
+    font-weight: bold;
+}
+
+/* Texto */
+.swal2-html-container{
+    color: #555;
+}
+
+/* Botón confirmar */
+.swal2-confirm{
+    background: linear-gradient(135deg,#7b2ff7,#c850c0) !important;
+    border: none !important;
+    border-radius: 10px !important;
+    padding: 10px 20px !important;
+    font-weight: 500;
+}
+
+/* Hover confirmar */
+.swal2-confirm:hover{
+    transform: scale(1.05);
+}
+
+/* Botón cancelar */
+.swal2-cancel{
+    background: #eee !important;
+    color: #555 !important;
+    border-radius: 10px !important;
+    padding: 10px 20px !important;
+}
+
+/* Hover cancelar */
+.swal2-cancel:hover{
+    background: #ddd !important;
+}
+
+/* Icono (warning) */
+.swal2-icon.swal2-warning{
+    border-color: #c850c0 !important;
+    color: #7b2ff7 !important;
+}

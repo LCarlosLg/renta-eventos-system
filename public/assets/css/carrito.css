@@ -1,142 +1,291 @@
-/* Contenedor del carrito */
-.card{
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-    border: none;
+body{
+    font-family: 'Playfair Display', serif;
+    background: linear-gradient(135deg, #f3e6ff, #ffffff);
 }
 
-/* Tabla */
-table th{
-    color: #8a2be2;
-    font-weight: 600;
-    border-bottom: 2px solid #eee;
+/* BANNER (igual estilo) */
+.banner{
+    background: linear-gradient(135deg,#7b2ff7,#c850c0);
+    padding:30px;
+    border-radius:15px;
+    color:white;
+    text-align:center;
 }
 
-table td{
-    font-size: 15px;
-    vertical-align: middle;
+/* BOTON AGREGAR */
+.btn-seguir{
+    border:2px solid #7b2ff7;
+    padding:6px 12px;
+    border-radius:10px;
+    color:#7b2ff7;
+    text-decoration:none;
+
+    /* 🔥 NUEVO */
+    display:flex;
+    align-items:center;
+    gap:6px;
 }
 
-/* Filas */
-table tr{
-    transition: 0.3s ease;
+.btn-seguir:hover{
+    background:#7b2ff7;
+    color:white;
 }
 
-table tr:hover{
-    background: #f9f5ff;
+/* ===== TABLA MEJORADA ===== */
+
+#carrito tr{
+    border-bottom:1px solid #eee;
+    transition:0.2s;
+}
+
+#carrito tr:hover{
+    background:#faf7ff;
+}
+
+/* Producto */
+#carrito td:first-child{
+    text-align:left;
+    font-weight:500;
 }
 
 /* Cantidad */
 .cantidad-box{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
 }
 
-/* Botones incrementar (+) y disminuir (-) */
+.cantidad-box span{
+    font-weight:bold;
+    min-width:25px;
+}
+
+/* Botones + - */
 .cantidad-box button{
-    background: linear-gradient(45deg,#8a2be2,#b832c5);
-    color: white;
-    border: none;
-    border-radius: 6px;
-    width: 32px;
-    height: 32px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.2s;
+    width:32px;
+    height:32px;
+    border:none;
+    border-radius:8px;
+    background:linear-gradient(135deg,#7b2ff7,#c850c0);
+    color:white;
+    transition:0.2s;
 }
 
 .cantidad-box button:hover{
-    transform: scale(1.1);
-    opacity: 0.9;
+    transform:scale(1.1);
 }
 
-/* Número */
-.cantidad-box span{
-    font-weight: bold;
-    font-size: 16px;
-    min-width: 20px;
-    text-align: center;
+/* Precio */
+#carrito td:nth-child(3),
+#carrito td:nth-child(4){
+    font-weight:500;
+    color:#444;
 }
 
-/* Botón eliminar */
+/* Eliminar */
 .btn-eliminar{
-    background: none;
-    border: none;
-    font-size: 18px;
-    cursor: pointer;
-    color: #ff4d4d;
-    transition: 0.2s;
+    border:none;
+    background:linear-gradient(135deg,#7b2ff7,#c850c0);
+    color:white;
+    padding:8px 12px;
+    border-radius:10px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    cursor:pointer;
+
+    /* Sombras en el hover */
+    box-shadow: 0 4px 10px rgba(123,47,247,0.3);
+    transition: all 0.25s ease;
 }
 
+/* Icono */
+.btn-eliminar ion-icon{
+    font-size: 22px;
+    transition: transform 0.2s ease;
+}
+
+/* Hover */
 .btn-eliminar:hover{
-    transform: scale(1.2);
-    color: red;
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 15px rgba(123,47,247,0.5);
+}
+
+/* Efecto en el icono */
+.btn-eliminar:hover ion-icon{
+    transform: rotate(-10deg) scale(1.2);
+}
+
+/* Click (presionado) */
+.btn-eliminar:active{
+    transform: scale(0.95);
+    box-shadow: 0 2px 5px rgba(123,47,247,0.3);
 }
 
 /* Total */
 .total-precio{
-    font-size: 24px;
-    font-weight: bold;
-    color: #8a2be2;
+    color:#7b2ff7;
+    font-weight:bold;
 }
 
 /* Botón confirmar */
 .btn-confirmar{
-    background: linear-gradient(45deg,#8a2be2,#b832c5);
-    color: white;
-    border: none;
-    border-radius: 10px;
-    padding: 10px 20px;
-    font-weight: 600;
-    transition: 0.3s;
-    box-shadow: 0 5px 15px rgba(138,43,226,0.3);
+    background:linear-gradient(135deg,#7b2ff7,#c850c0);
+    border:none;
+    padding:12px;
+    border-radius:10px;
+    color:white;
+    width:100%;
 }
 
-.btn-confirmar:hover{
-    transform: scale(1.05);
-    opacity: 0.95;
-}
-
-/* Botón de agregar mas productos al carrito */
-.btn-seguir{
-    border: 2px solid #8a2be2;
-    color: #8a2be2;
-    padding: 6px 14px;
-    border-radius: 10px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: 0.3s;
-}
-
-.btn-seguir:hover{
-    background: #8a2be2;
-    color: white;
-}
-
-/* Texto vacío */
+/* Vacío */
 .carrito-vacio{
-    text-align: center;
-    padding: 20px;
-    font-weight: 600;
-    color: #777;
+    padding:25px;
+    color:#888;
+    text-align:center;
 }
 
-/* Responsive */
-@media (max-width: 768px){
+/* =========================
+ICONOS NAVBAR (NUEVO)
+========================= */
+.icono-nav{
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    position: relative;
+    transition: 0.3s;
+}
 
-    .cantidad-box{
-        gap: 5px;
-    }
+.icono-nav:hover{
+    transform: scale(1.2);
+}
 
-    .cantidad-box button{
-        width: 28px;
-        height: 28px;
-    }
+/* Badge notificaciones */
+.badge-noti{
+    position: absolute;
+    top: -5px;
+    right: -8px;
+    background: red;
+    color: white;
+    font-size: 10px;
+    padding: 3px 6px;
+    border-radius: 50%;
+}
 
-    .btn-confirmar{
-        width: 100%;
-    }
+/* Avatar perfil */
+.avatar{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
+    cursor: pointer;
+}
 
+/* Dropdown perfil */
+.dropdown-menu{
+    border-radius: 12px;
+    padding: 10px;
+}
+
+.dropdown-item{
+    font-weight: 500;
+}
+
+.dropdown-item:hover{
+    background: #f3e6ff;
+}
+
+/* Alinear iconos a la derecha */
+.navbar .d-flex{
+    align-items: center;
+    gap: 15px;
+}
+
+/* =========================
+🔥 NUEVO: ESTILO IONICONS
+========================= */
+
+/* Iconos generales */
+ion-icon{
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+/* Icono en títulos (🧾) */
+.icono{
+    font-size: 22px;
+}
+
+/* Icono dentro de botón eliminar */
+.btn-eliminar ion-icon{
+    font-size: 22px;
+    color: white;
+}
+
+/* Icono dentro de btn-seguir */
+.btn-seguir ion-icon{
+    font-size: 20px;
+}
+
+/* Hover bonito para iconos */
+ion-icon:hover{
+    transform: scale(1.1);
+    transition: 0.2s;
+}
+
+/* SweetAlert para el boton de cerrar sesión */
+
+/* Contenedor */
+.swal2-popup{
+    border-radius: 15px !important;
+    font-family: 'Playfair Display', serif;
+    padding: 25px;
+}
+
+/* Título */
+.swal2-title{
+    color: #7b2ff7;
+    font-weight: bold;
+}
+
+/* Texto */
+.swal2-html-container{
+    color: #555;
+}
+
+/* Botón confirmar */
+.swal2-confirm{
+    background: linear-gradient(135deg,#7b2ff7,#c850c0) !important;
+    border: none !important;
+    border-radius: 10px !important;
+    padding: 10px 20px !important;
+    font-weight: 500;
+}
+
+/* Hover confirmar */
+.swal2-confirm:hover{
+    transform: scale(1.05);
+}
+
+/* Botón cancelar */
+.swal2-cancel{
+    background: #eee !important;
+    color: #555 !important;
+    border-radius: 10px !important;
+    padding: 10px 20px !important;
+}
+
+/* Hover cancelar */
+.swal2-cancel:hover{
+    background: #ddd !important;
+}
+
+/* Icono (warning) */
+.swal2-icon.swal2-warning{
+    border-color: #c850c0 !important;
+    color: #7b2ff7 !important;
 }
